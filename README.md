@@ -1,2 +1,3 @@
-# SIMPLE_MBR_RANSOMWARE
-This c code is for research and all responsibility for abusing this code is all up to you. This sample malware replace MBR into malicious MBR and raise blue screen of death to reboot.
+# Replace MBR Sample
+
+I coded this program to get understanding of the way MBR Ransomware works. I tested it and worked proplerly.
